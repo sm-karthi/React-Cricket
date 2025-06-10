@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+.heading-cell{
+    @apply border border-gray-300 font-semibold px-2.5 py-1
+}
+
+.table-cell{
+    @apply border border-gray-300 px-2.5 py-1
+}
