@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .heading-cell{
-    @apply border border-gray-400 font-semibold lg:px-2.5 lg:py-1
+    @apply border border-gray-400 font-semibold lg:px-2.5 lg:py-1 bg-gray-100
 }
 
 .table-cell{
