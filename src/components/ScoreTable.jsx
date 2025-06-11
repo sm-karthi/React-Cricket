@@ -11,10 +11,12 @@ function ScoreTable({ teamName, score }) {
     let [currentPlayer, setCurrentPlayer] = useState(0);
     let [currentBall, setCurrentBall] = useState(0);
 
-
     useEffect(() => {
+        if (score === null) {
+            return;
+        }
 
-        let updatedScore = [...scores]
+        let updatedScore = [...scores];
         updatedScore[currentPlayer].balls[currentBall] = score;
         updatedScore[currentPlayer].total += score;
 
@@ -23,18 +25,18 @@ function ScoreTable({ teamName, score }) {
         if (currentBall === 5 || score === 0) {
             setCurrentBall(0);
             setCurrentPlayer(currentPlayer + 1);
-        }
-        else {
+        } else {
             setCurrentBall(currentBall + 1);
         }
-
-    }, [score])
+    }, [score]);
 
     return (
         <div className='flex flex-col text-center mt-8'>
+
             <h4 className='font-semibold text-lg'>{teamName} SCORE BOARD</h4>
 
             <table className="border-collapse border border-gray-400 mt-5 shadow-lg">
+
                 <thead>
                     <tr>
                         <th className='heading-cell'>{teamName}</th>
@@ -60,18 +62,21 @@ function ScoreTable({ teamName, score }) {
                                     player.balls.map((ball) => (
 
                                         <td className="table-cell">{ball}</td>
-
                                     ))
                                 }
 
                                 <td className="table-cell">{player.total}</td>
 
                             </tr>
-                        ))
-                    }
+
+                        ))}
+
                 </tbody>
+
             </table>
+
         </div>
+
     );
 }
 
