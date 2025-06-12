@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function ScoreTable({ teamName, score }) {
+function ScoreTable({ teamName, score, onTotalChange, onPlayerScoresChange }) {
 
     let table = Array(10).fill("").map(() => ({
         balls: Array(6).fill(""),
@@ -30,6 +30,20 @@ function ScoreTable({ teamName, score }) {
         }
     }, [score]);
 
+    useEffect(() => {
+
+        let totalTeamScore = 0;
+        scores.forEach(player => {
+            totalTeamScore += player.total;
+        });
+
+        onTotalChange(totalTeamScore);
+
+        onPlayerScoresChange(scores);
+
+    }, [scores, onTotalChange, onPlayerScoresChange]);
+
+
     return (
         <div className='flex flex-col text-center mt-8'>
 
@@ -38,6 +52,7 @@ function ScoreTable({ teamName, score }) {
             <table className="border-collapse border border-gray-400 mt-5 shadow-lg">
 
                 <thead>
+
                     <tr>
                         <th className='heading-cell'>{teamName}</th>
                         <th className='heading-cell'>B1</th>
@@ -48,28 +63,23 @@ function ScoreTable({ teamName, score }) {
                         <th className='heading-cell'>B6</th>
                         <th className='heading-cell'>TOTAL</th>
                     </tr>
+
                 </thead>
 
                 <tbody>
                     {
                         scores.map((player, index) => (
-
                             <tr>
-
                                 <td className="table-cell">{"PLAYER " + (index + 1)}</td>
-
                                 {
                                     player.balls.map((ball) => (
-
                                         <td className="table-cell">{ball}</td>
                                     ))
                                 }
-
                                 <td className="table-cell">{player.total}</td>
-
                             </tr>
-
-                        ))}
+                        ))
+                    }
 
                 </tbody>
 
@@ -78,6 +88,7 @@ function ScoreTable({ teamName, score }) {
         </div>
 
     );
+
 }
 
 export default ScoreTable;
